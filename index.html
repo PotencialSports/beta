@@ -30,6 +30,11 @@
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
 
+
+/* ── WATERMARK ── */
+.wm { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 0; overflow: hidden; }
+.wm img { width: 700px; max-width: 80%; opacity: 0.03; filter: brightness(0) invert(1); user-select: none; }
+.hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
 /* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -285,7 +290,7 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
 
 <!-- NAV -->
 <nav>
-  <div class="logo"><span class="logo-dot"></span>Potencial Sports</div>
+  <div class="logo"><img src="https://potencialsports.github.io/beta/logo%201.png" alt="Potencial Sports" style="height:30px; width:auto;"><span style="color:#fff; font-family:Space Grotesk,sans-serif; font-size:15px; font-weight:600; letter-spacing:-0.01em;">Potencial Sports</span></div>
   <div class="nav-right">
     <span class="nav-badge">BETA ABERTO</span>
     <a href="#formulario" class="nav-cta">Solicitar acesso</a>
@@ -295,6 +300,9 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
 <!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
+  <div class="wm"><img src="https://potencialsports.github.io/beta/logo%201.png" alt=""></div>
+  <div class="hero-content">
+  <img src="https://potencialsports.github.io/beta/logo%203.png" alt="Potencial Sports" style="height:72px; width:auto; margin-bottom:2.5rem; filter: drop-shadow(0 0 40px rgba(57,212,26,0.25));">
   <p class="hero-eyebrow">Análise de desempenho com IA</p>
   <h1 class="hero-title">
     Relatórios profissionais.<br>
@@ -324,6 +332,7 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
       <div class="h-stat-label">em cada relatório</div>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- MOCKUP -->
@@ -340,7 +349,7 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
       </div>
       <div class="mockup-body">
         <div class="mockup-sidebar">
-          <div class="sidebar-logo"><span class="sidebar-logo-dot"></span>Potencial Sports</div>
+          <div class="sidebar-logo"><img src="https://potencialsports.github.io/beta/logo%201.png" alt="Potencial Sports" style="height:22px; width:auto; filter: brightness(0) invert(1);"></div>
           <div class="sidebar-item active"><span class="si-dot"></span>Análise Individual</div>
           <div class="sidebar-item"><span class="si-dot"></span>Análise Coletiva</div>
           <div class="sidebar-item"><span class="si-dot"></span>Prospecção</div>
@@ -699,8 +708,10 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
 </section>
 
 <!-- CTA FINAL -->
-<section class="cta-final">
+<section class="cta-final" style="position:relative;">
+  <div class="wm"><img src="https://potencialsports.github.io/beta/logo%201.png" alt="" style="opacity:0.025;"></div>
   <div class="cta-glow"></div>
+  <img src="https://potencialsports.github.io/beta/logo%203.png" alt="Potencial Sports" style="height:56px; width:auto; margin-bottom:2rem; opacity:0.9; filter: drop-shadow(0 0 20px rgba(57,212,26,0.2)); position:relative; z-index:1;">
   <p class="section-label" style="justify-content:center; display:flex;">Programa beta</p>
   <h2 class="section-title">O analista que chegar primeiro vai sair na frente.</h2>
   <p class="section-sub">A janela está aberta. Vagas limitadas. Analisamos cada perfil antes de liberar o acesso.</p>
@@ -801,7 +812,7 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><span class="footer-logo-dot"></span>Potencial Sports</div>
+  <div class="footer-logo"><img src="https://potencialsports.github.io/beta/logo%201.png" alt="Potencial Sports" style="height:28px; width:auto; filter: brightness(0) invert(1); opacity:0.5;"></div>
   <div class="footer-text">IA para análise de desempenho no futebol brasileiro</div>
   <div class="footer-text">contatopotencialsports@gmail.com</div>
 </footer>
