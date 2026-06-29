@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Potencial Sports — Acesso Beta</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #39d41a;
+    --green-dim: rgba(57,212,26,0.12);
+    --green-border: rgba(57,212,26,0.25);
+    --bg: #080808;
+    --card: #0e0e0e;
+    --input-bg: #0a0a0a;
+    --border: rgba(255,255,255,0.07);
+    --border-strong: rgba(255,255,255,0.12);
+    --text: #f0f0f0;
+    --text-muted: #666;
+    --text-secondary: #999;
+    --radius: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .nav-badge {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--green);
+    background: var(--green-dim);
+    border: 0.5px solid var(--green-border);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 1.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse at center top, rgba(57,212,26,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: #fff;
+    max-width: 720px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title span {
+    color: var(--green);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green);
+    color: #080808;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    text-decoration: none;
+  }
+
+  .hero-cta:hover { opacity: 0.88; }
+
+  .hero-stat {
+    margin-top: 4rem;
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    height: 0.5px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* FORM SECTION */
+  .form-section {
+    padding: 6rem 1.5rem;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  /* FORM */
+  .form-card {
+    background: var(--card);
+    border: 0.5px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  .form-step {
+    display: none;
+  }
+
+  .form-step.active {
+    display: block;
+  }
+
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1.75rem;
+  }
+
+  .step-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border-strong);
+    transition: background 0.2s;
+  }
+
+  .step-dot.active { background: var(--green); }
+  .step-dot.done { background: rgba(57,212,26,0.4); }
+
+  .step-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    width: 100%;
+    background: var(--input-bg);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus {
+    border-color: var(--green);
+  }
+
+  input::placeholder { color: var(--text-muted); }
+
+  .option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .option-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--input-bg);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    font-size: 14px;
+    color: var(--text-secondary);
+    user-select: none;
+  }
+
+  .option-item:hover {
+    border-color: rgba(57,212,26,0.3);
+    color: var(--text);
+  }
+
+  .option-item.selected {
+    border-color: var(--green);
+    background: var(--green-dim);
+    color: #fff;
+  }
+
+  .option-radio {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-strong);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.15s;
+  }
+
+  .option-item.selected .option-radio {
+    border-color: var(--green);
+    background: var(--green);
+  }
+
+  .option-item.selected .option-radio::after {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #080808;
+  }
+
+  .conditional-field {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .conditional-field.visible { display: block; }
+
+  .btn-primary {
+    width: 100%;
+    background: var(--green);
+    color: #080808;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 13px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: opacity 0.15s;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-back {
+    background: transparent;
+    border: 0.5px solid var(--border-strong);
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: 0.75rem;
+    width: 100%;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .btn-back:hover { border-color: var(--border-strong); color: var(--text); }
+
+  /* SUCCESS */
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .success-icon {
+    width: 52px; height: 52px;
+    background: var(--green-dim);
+    border: 0.5px solid var(--green-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 22px;
+  }
+
+  .success-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .success-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* ERROR */
+  .form-error {
+    font-size: 12px;
+    color: #ff5555;
+    margin-top: 6px;
+    display: none;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-text {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* LOADING */
+  .btn-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(8,8,8,0.3);
+    border-top-color: #080808;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 480px) {
+    nav { padding: 1rem 1.25rem; }
+    .form-card { padding: 1.5rem 1.25rem; }
+    .hero-stat { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <span class="logo-dot"></span>
+    Potencial Sports
+  </div>
+  <span class="nav-badge">ACESSO BETA</span>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Programa Beta — Vagas limitadas</p>
+  <h1 class="hero-title">Análise de desempenho.<br><span>Na velocidade que o futebol exige.</span></h1>
+  <p class="hero-sub">Plataforma com IA para analistas que já sabem o que fazem e precisam de uma ferramenta que acompanhe o ritmo do trabalho.</p>
+  <a href="#formulario" class="hero-cta">Solicitar acesso beta</a>
+
+  <div class="hero-stat">
+    <div class="stat-item">
+      <div class="stat-number">8min</div>
+      <div class="stat-label">por relatório completo</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">IA</div>
+      <div class="stat-label">aplicada à análise</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">BR</div>
+      <div class="stat-label">feito para o futebol daqui</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="form-section" id="formulario">
+  <p class="section-label">Programa beta</p>
+  <h2 class="section-title">Solicite seu acesso</h2>
+  <p class="section-sub">Analisamos cada perfil individualmente. Preencha as informações abaixo e retornamos em breve.</p>
+
+  <div class="form-card">
+
+    <!-- STEP 1 -->
+    <div class="form-step active" id="step1">
+      <div class="step-indicator">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <span class="step-label">1 de 3</span>
+      </div>
+
+      <div class="form-group">
+        <label>Qual é o seu perfil?</label>
+        <div class="option-group" id="perfil-group">
+          <div class="option-item" data-value="clube" onclick="selectOption('perfil', this)">
+            <div class="option-radio"></div>
+            Analista de clube
+          </div>
+          <div class="option-item" data-value="atleta" onclick="selectOption('perfil', this)">
+            <div class="option-radio"></div>
+            Analista de atleta
+          </div>
+          <div class="option-item" data-value="formacao" onclick="selectOption('perfil', this)">
+            <div class="option-radio"></div>
+            Em formação
+          </div>
+        </div>
+        <span class="form-error" id="perfil-error">Selecione uma opção para continuar.</span>
+      </div>
+
+      <div class="conditional-field" id="field-clube">
+        <div class="form-group">
+          <label>Qual clube você representa?</label>
+          <input type="text" id="nome-clube" placeholder="Ex: Atlético Mineiro Sub-17">
+        </div>
+      </div>
+
+      <div class="conditional-field" id="field-atleta">
+        <div class="form-group">
+          <label>Qual atleta você acompanha?</label>
+          <input type="text" id="nome-atleta" placeholder="Ex: Nome do atleta ou categoria">
+        </div>
+      </div>
+
+      <div class="conditional-field" id="field-formacao">
+        <div class="form-group">
+          <label>Em qual escola ou curso está se formando?</label>
+          <input type="text" id="nome-escola" placeholder="Ex: Laboratório do Futebol">
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="goToStep2()">Continuar</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="form-step" id="step2">
+      <div class="step-indicator">
+        <div class="step-dot done"></div>
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <span class="step-label">2 de 3</span>
+      </div>
+
+      <div class="form-group">
+        <label>Como você trabalha com análise hoje?</label>
+        <div class="option-group" id="contexto-group">
+          <div class="option-item" data-value="profissional" onclick="selectOption('contexto', this)">
+            <div class="option-radio"></div>
+            Profissionalmente, é minha função principal
+          </div>
+          <div class="option-item" data-value="complementar" onclick="selectOption('contexto', this)">
+            <div class="option-radio"></div>
+            É parte do meu trabalho, mas não a função principal
+          </div>
+          <div class="option-item" data-value="estudando" onclick="selectOption('contexto', this)">
+            <div class="option-radio"></div>
+            Ainda estou aprendendo e desenvolvendo
+          </div>
+        </div>
+        <span class="form-error" id="contexto-error">Selecione uma opção para continuar.</span>
+      </div>
+
+      <button class="btn-primary" onclick="goToStep3()">Continuar</button>
+      <button class="btn-back" onclick="goToStep(1)">Voltar</button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="form-step" id="step3">
+      <div class="step-indicator">
+        <div class="step-dot done"></div>
+        <div class="step-dot done"></div>
+        <div class="step-dot active"></div>
+        <span class="step-label">3 de 3</span>
+      </div>
+
+      <div class="form-group">
+        <label>Seu nome</label>
+        <input type="text" id="nome" placeholder="Nome completo">
+        <span class="form-error" id="nome-error">Informe seu nome para continuar.</span>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="seu@email.com">
+        <span class="form-error" id="email-error">Informe um email válido.</span>
+      </div>
+
+      <div class="form-group">
+        <label>WhatsApp <span style="color:var(--text-muted); font-weight:400;">(opcional)</span></label>
+        <input type="tel" id="whatsapp" placeholder="(00) 00000-0000">
+      </div>
+
+      <button class="btn-primary" id="btn-submit" onclick="submitForm()">Solicitar acesso</button>
+      <button class="btn-back" onclick="goToStep(2)">Voltar</button>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-state" id="success">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Solicitação recebida</div>
+      <p class="success-text">Analisamos cada perfil com atenção. Você vai receber um email de confirmação em breve e retornamos com uma resposta assim que possível.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Potencial Sports</div>
+  <div class="footer-text">IA para análise de desempenho no futebol brasileiro</div>
+</footer>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init('exhN16LsuK5dIqzia'); // Substitua pela sua Public Key do EmailJS
+
+  const state = {
+    perfil: '',
+    contexto: '',
+    perfilDetalhe: ''
+  };
+
+  function selectOption(group, el) {
+    document.querySelectorAll(`#${group}-group .option-item`).forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    state[group] = el.dataset.value;
+
+    if (group === 'perfil') {
+      ['clube','atleta','formacao'].forEach(f => {
+        document.getElementById('field-' + f).classList.remove('visible');
+      });
+      if (state.perfil === 'clube') document.getElementById('field-clube').classList.add('visible');
+      if (state.perfil === 'atleta') document.getElementById('field-atleta').classList.add('visible');
+      if (state.perfil === 'formacao') document.getElementById('field-formacao').classList.add('visible');
+    }
+
+    document.getElementById(`${group}-error`).style.display = 'none';
+  }
+
+  function getPerfilDetalhe() {
+    if (state.perfil === 'clube') return document.getElementById('nome-clube').value.trim();
+    if (state.perfil === 'atleta') return document.getElementById('nome-atleta').value.trim();
+    if (state.perfil === 'formacao') return document.getElementById('nome-escola').value.trim();
+    return '';
+  }
+
+  function getPerfilLabel() {
+    if (state.perfil === 'clube') return 'Analista de clube';
+    if (state.perfil === 'atleta') return 'Analista de atleta';
+    if (state.perfil === 'formacao') return 'Em formação';
+    return '';
+  }
+
+  function getContextoLabel() {
+    if (state.contexto === 'profissional') return 'Profissionalmente — função principal';
+    if (state.contexto === 'complementar') return 'Parte do trabalho, não função principal';
+    if (state.contexto === 'estudando') return 'Ainda aprendendo e desenvolvendo';
+    return '';
+  }
+
+  function goToStep2() {
+    if (!state.perfil) {
+      document.getElementById('perfil-error').style.display = 'block';
+      return;
+    }
+    goToStep(2);
+  }
+
+  function goToStep3() {
+    if (!state.contexto) {
+      document.getElementById('contexto-error').style.display = 'block';
+      return;
+    }
+    goToStep(3);
+  }
+
+  function goToStep(n) {
+    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+  }
+
+  async function submitForm() {
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+
+    let valid = true;
+
+    if (!nome) {
+      document.getElementById('nome-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('nome-error').style.display = 'none';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      document.getElementById('email-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('email-error').style.display = 'none';
+    }
+
+    if (!valid) return;
+
+    const btn = document.getElementById('btn-submit');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="btn-loading"><span class="spinner"></span> Enviando...</span>';
+
+    const perfilDetalhe = getPerfilDetalhe();
+
+    const templateParamsInterno = {
+      to_email: 'contatopotencialsports@gmail.com',
+      nome: nome,
+      email: email,
+      whatsapp: whatsapp || 'Não informado',
+      perfil: getPerfilLabel(),
+      perfil_detalhe: perfilDetalhe || 'Não informado',
+      contexto: getContextoLabel()
+    };
+
+    const templateParamsConfirmacao = {
+      to_email: email,
+      to_name: nome,
+      reply_to: 'contatopotencialsports@gmail.com'
+    };
+
+    try {
+      // Envia notificação interna para a Potencial Sports
+      await emailjs.send('service_sym890l', 'template_wrch9wo', templateParamsInterno);
+      // Envia confirmação automática para o tester
+      await emailjs.send('service_sym890l', 'template_cw6vgbk', templateParamsConfirmacao);
+
+      document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('success').style.display = 'block';
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.innerHTML = 'Solicitar acesso';
+      alert('Erro ao enviar. Tente novamente ou entre em contato pelo Instagram.');
+      console.error(err);
+    }
+  }
+</script>
+</body>
+</html>
