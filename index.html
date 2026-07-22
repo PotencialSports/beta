@@ -128,13 +128,23 @@ section > .section-inner, section > .cta-final-content { position: relative; z-i
 
 
 /* ── WATERMARK ── */
-.wm { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 0; overflow: hidden; }
-.wm img { width: 1150px; max-width: 105%; opacity: 0.055; filter: brightness(0) invert(1); user-select: none; animation: wmFloat 9s ease-in-out infinite; transform-origin: center; }
-@keyframes wmFloat {
-  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.05; }
-  50% { transform: translateY(-22px) scale(1.035) rotate(0.8deg); opacity: 0.09; }
-}
 .hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+/* ── BRAND LOGO — PULSE GLOW (not float) ── */
+.hero-logo-mark {
+  animation: logoPulseGlow 3.2s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes logoPulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 22px rgba(57,212,26,0.22)) drop-shadow(0 0 2px rgba(57,212,26,0.15));
+  }
+  50% {
+    transform: scale(1.045);
+    filter: drop-shadow(0 0 55px rgba(57,212,26,0.55)) drop-shadow(0 0 12px rgba(57,212,26,0.35));
+  }
+}
 /* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -370,6 +380,7 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
 @media (max-width: 768px) {
   nav { padding: 1rem 1.25rem; }
   .nav-cta { display: none; }
+  .hero-logo-mark { height: 76px !important; }
   .hero-stats { flex-direction: column; }
   .h-stat { border-right: none; border-bottom: 0.5px solid var(--border-mid); }
   .h-stat:last-child { border-bottom: none; }
@@ -401,9 +412,8 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
 <section class="hero">
   <canvas class="hero-grid-canvas" id="heroCanvas"></canvas>
   <div class="hero-glow"></div>
-  <div class="wm"><img src="https://potencialsports.github.io/beta/logo%201.png" alt=""></div>
   <div class="hero-content">
-  <img src="https://potencialsports.github.io/beta/logo%203.png" alt="Potencial Sports" style="height:72px; width:auto; margin-bottom:2.5rem; filter: drop-shadow(0 0 40px rgba(57,212,26,0.25));">
+  <img src="https://potencialsports.github.io/beta/logo%203.png" alt="Potencial Sports" class="hero-logo-mark" style="height:112px; width:auto; margin-bottom:2.5rem;">
   <p class="hero-eyebrow">Análise de desempenho com IA</p>
   <h1 class="hero-title">
     Relatórios profissionais.<br>
@@ -810,7 +820,6 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
 
 <!-- CTA FINAL -->
 <section class="cta-final" style="position:relative;">
-  <div class="wm"><img src="https://potencialsports.github.io/beta/logo%201.png" alt="" style="opacity:0.025;"></div>
   <div class="cta-glow"></div>
   <img src="https://potencialsports.github.io/beta/logo%203.png" alt="Potencial Sports" style="height:56px; width:auto; margin-bottom:2rem; opacity:0.9; filter: drop-shadow(0 0 20px rgba(57,212,26,0.2)); position:relative; z-index:1;">
   <p class="section-label" style="justify-content:center; display:flex;">Programa beta</p>
