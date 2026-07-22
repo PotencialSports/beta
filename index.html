@@ -95,9 +95,6 @@ section > .section-inner, section > .cta-final-content { position: relative; z-i
 /* Hero grid canvas */
 .hero-grid-canvas { position: absolute; inset: 0; z-index: 0; opacity: 0.55; pointer-events: none; }
 
-/* Mockup 3D depth */
-.mockup-frame { transition: transform .3s ease-out; transform-style: preserve-3d; will-change: transform; }
-
 /* Report lines fill animation */
 .report-line { position: relative; overflow: hidden; }
 .report-line .fill { position: absolute; inset: 0; width: 0%; background: linear-gradient(90deg, rgba(57,212,26,0.55), rgba(57,212,26,0.2)); border-radius: 3px; transition: width 1.1s cubic-bezier(.2,.7,.2,1); }
@@ -193,23 +190,81 @@ nav {
 .h-stat-num span { color: var(--green); }
 .h-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-/* ── MOCKUP ── */
-.mockup-section { padding: 5rem 1.5rem; position: relative; }
-.mockup-wrap { max-width: 1000px; margin: 0 auto; position: relative; }
-.mockup-glow { position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(57,212,26,0.06) 0%, transparent 70%); pointer-events: none; }
-.mockup-frame {
-  background: var(--card); border: 0.5px solid var(--border-mid);
-  border-radius: 16px; overflow: hidden;
-  box-shadow: 0 40px 120px rgba(0,0,0,0.8), 0 0 0 0.5px rgba(255,255,255,0.04);
+/* ── MACBOOK SCROLL EXPERIENCE ── */
+.mac-scroll-wrap { position: relative; height: 300vh; }
+.mac-sticky {
+  position: sticky; top: 0; height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; perspective: 2400px;
 }
-.mockup-bar { background: #0a0a0a; border-bottom: 0.5px solid var(--border); padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
-.mockup-dots { display: flex; gap: 6px; }
-.mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
-.mockup-dot.r { background: #ff5f57; }
-.mockup-dot.y { background: #febc2e; }
-.mockup-dot.g { background: #28c840; }
-.mockup-url { flex: 1; background: #111; border: 0.5px solid var(--border); border-radius: 6px; padding: 4px 12px; font-size: 11px; color: var(--text-muted); text-align: center; }
-.mockup-body { display: grid; grid-template-columns: 200px 1fr; min-height: 420px; }
+.mac-ambient-glow {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 900px; height: 560px;
+  background: radial-gradient(ellipse, rgba(57,212,26,0.09) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+.mac-scroll-hint {
+  position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); z-index: 2; transition: opacity .4s ease;
+}
+.mac-stage {
+  position: relative; width: min(880px, 84vw); z-index: 1;
+  transform-style: preserve-3d;
+  transform: rotateX(10deg);
+}
+.mac-laptop { position: relative; width: 100%; transform-style: preserve-3d; }
+
+.mac-lid {
+  position: relative; width: 100%; aspect-ratio: 16 / 10.2;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(-98deg);
+}
+.mac-screen {
+  position: absolute; inset: 0;
+  background: #030303; border: 7px solid #1b1b1b;
+  border-radius: 15px 15px 3px 3px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+.mac-notch {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 130px; height: 16px; background: #030303;
+  border-radius: 0 0 10px 10px; z-index: 5;
+}
+.mac-menubar {
+  height: 26px; display: flex; align-items: center; gap: 8px;
+  padding: 0 14px; background: #060606; border-bottom: 0.5px solid var(--border);
+  font-size: 10px; color: var(--text-muted);
+}
+.mb-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px rgba(57,212,26,0.7); flex-shrink: 0; }
+.mb-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: var(--text-secondary); }
+.mb-right { margin-left: auto; display: flex; gap: 10px; }
+.mac-screen-body { position: relative; height: calc(100% - 26px); overflow: hidden; }
+
+.mac-base {
+  position: relative; width: 106%; left: -3%; height: 16px;
+  background: linear-gradient(180deg, #232323, #0c0c0c);
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.75);
+}
+.mac-keyboard-deck { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.mac-trackpad { width: 130px; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.06); }
+.mac-shadow {
+  position: absolute; left: 50%; bottom: -50px; transform: translateX(-50%);
+  width: 70%; height: 40px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.55) 0%, transparent 72%);
+}
+
+@media (max-width: 768px) {
+  .mac-scroll-wrap { height: 240vh; }
+  .mac-stage { width: 92vw; }
+  .mac-notch { width: 90px; height: 12px; }
+}
+
+/* ── SCREEN CONTENT (reused inside the laptop) ── */
+.mockup-body { display: grid; grid-template-columns: 200px 1fr; min-height: 420px; height: 100%; }
 .mockup-sidebar { background: #090909; border-right: 0.5px solid var(--border); padding: 1rem 0; }
 .sidebar-logo { padding: 0.5rem 1rem 1rem; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 8px; }
 .sidebar-logo-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
@@ -217,7 +272,7 @@ nav {
 .sidebar-item.active { color: #fff; background: rgba(255,255,255,0.04); border-left: 2px solid var(--green); }
 .sidebar-item .si-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: 0.5; flex-shrink: 0; }
 .sidebar-item.active .si-dot { background: var(--green); opacity: 1; }
-.mockup-main { padding: 1.5rem; }
+.mockup-main { padding: 1.5rem; overflow: auto; }
 .mockup-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
 .mockup-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #fff; }
 .mockup-tag { font-size: 10px; color: var(--green); background: var(--green-dim); border: 0.5px solid var(--green-border); padding: 3px 10px; border-radius: 20px; }
@@ -247,6 +302,7 @@ section { padding: 6rem 1.5rem; }
 .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.025em; color: #fff; line-height: 1.15; margin-bottom: 1rem; }
 .section-sub { font-size: 1rem; color: var(--text-secondary); line-height: 1.75; max-width: 560px; }
 .divider { width: 100%; height: 0.5px; background: var(--border); }
+
 
 /* ── PROBLEMA ── */
 .problema-section { background: var(--bg2); }
@@ -446,69 +502,82 @@ footer { border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem; display:
   </div>
 </section>
 
-<!-- MOCKUP -->
-<div class="mockup-section">
-  <div class="mockup-wrap">
-    <div class="mockup-frame">
-      <div class="mockup-bar">
-        <div class="mockup-dots">
-          <div class="mockup-dot r"></div>
-          <div class="mockup-dot y"></div>
-          <div class="mockup-dot g"></div>
-        </div>
-        <div class="mockup-url">potencialsports.github.io/Analise-desempenho</div>
-      </div>
-      <div class="mockup-body">
-        <div class="mockup-sidebar">
-          <div class="sidebar-logo"><img src="https://potencialsports.github.io/beta/logo%201.png" alt="Potencial Sports" style="height:22px; width:auto; filter: brightness(0) invert(1);"></div>
-          <div class="sidebar-item active"><span class="si-dot"></span>Análise Individual</div>
-          <div class="sidebar-item"><span class="si-dot"></span>Análise Coletiva</div>
-          <div class="sidebar-item"><span class="si-dot"></span>Prospecção</div>
-          <div class="sidebar-item"><span class="si-dot"></span>Pré-jogo</div>
-          <div class="sidebar-item"><span class="si-dot"></span>Pós-jogo</div>
-          <div class="sidebar-item"><span class="si-dot"></span>Análise de Vídeo</div>
-          <div class="sidebar-item"><span class="si-dot"></span>Dashboard</div>
-        </div>
-        <div class="mockup-main">
-          <div class="mockup-header">
-            <div class="mockup-title">Análise Individual — Atleta</div>
-            <div class="mockup-tag">IA ativa</div>
+<!-- MACBOOK SCROLL EXPERIENCE -->
+<div class="mac-scroll-wrap" id="macScrollWrap">
+  <div class="mac-sticky">
+    <div class="mac-ambient-glow"></div>
+    <p class="mac-scroll-hint" id="macScrollHint">role para abrir ↓</p>
+    <div class="mac-stage" id="macStage">
+      <div class="mac-laptop">
+        <div class="mac-lid" id="macLid">
+          <div class="mac-screen">
+            <div class="mac-notch"></div>
+            <div class="mac-menubar">
+              <span class="mb-dot"></span>
+              <span class="mb-title">Potencial Sports</span>
+              <span class="mb-right"><span class="mb-icon">Wi-Fi</span><span class="mb-icon" id="macClock">09:41</span></span>
+            </div>
+            <div class="mac-screen-body">
+              <div class="mockup-body">
+                <div class="mockup-sidebar">
+                  <div class="sidebar-logo"><img src="https://potencialsports.github.io/beta/logo%201.png" alt="Potencial Sports" style="height:22px; width:auto; filter: brightness(0) invert(1);"></div>
+                  <div class="sidebar-item active"><span class="si-dot"></span>Análise Individual</div>
+                  <div class="sidebar-item"><span class="si-dot"></span>Análise Coletiva</div>
+                  <div class="sidebar-item"><span class="si-dot"></span>Prospecção</div>
+                  <div class="sidebar-item"><span class="si-dot"></span>Pré-jogo</div>
+                  <div class="sidebar-item"><span class="si-dot"></span>Pós-jogo</div>
+                  <div class="sidebar-item"><span class="si-dot"></span>Análise de Vídeo</div>
+                  <div class="sidebar-item"><span class="si-dot"></span>Dashboard</div>
+                </div>
+                <div class="mockup-main">
+                  <div class="mockup-header">
+                    <div class="mockup-title">Análise Individual — Atleta</div>
+                    <div class="mockup-tag">IA ativa</div>
+                  </div>
+                  <div class="mockup-grid">
+                    <div class="mockup-card glow-card">
+                      <div class="mc-label">Duelos ganhos</div>
+                      <div class="mc-value green">74%</div>
+                      <div class="mc-sub">↑ 8% vs último jogo</div>
+                    </div>
+                    <div class="mockup-card glow-card">
+                      <div class="mc-label">Passes progressivos</div>
+                      <div class="mc-value">23</div>
+                      <div class="mc-sub">Top 15% da posição</div>
+                    </div>
+                    <div class="mockup-card glow-card">
+                      <div class="mc-label">xG gerado</div>
+                      <div class="mc-value green">1.8</div>
+                      <div class="mc-sub">2 finalizações no alvo</div>
+                    </div>
+                  </div>
+                  <div class="mockup-report reveal" id="macReport">
+                    <div class="report-header">
+                      <div class="report-title">Relatório gerado por IA</div>
+                      <div class="report-badge">concluído</div>
+                    </div>
+                    <div class="report-lines">
+                      <div class="report-line w100" style="height: 7px;"><span class="fill"></span></div>
+                      <div class="report-line w85"><span class="fill"></span></div>
+                      <div class="report-line w90"><span class="fill"></span></div>
+                      <div class="report-line w70"><span class="fill"></span></div>
+                      <div class="report-line w60"><span class="fill"></span></div>
+                    </div>
+                    <div class="timer-badge">⚡ Relatório completo em 8 minutos</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mockup-grid">
-            <div class="mockup-card glow-card">
-              <div class="mc-label">Duelos ganhos</div>
-              <div class="mc-value green">74%</div>
-              <div class="mc-sub">↑ 8% vs último jogo</div>
-            </div>
-            <div class="mockup-card glow-card">
-              <div class="mc-label">Passes progressivos</div>
-              <div class="mc-value">23</div>
-              <div class="mc-sub">Top 15% da posição</div>
-            </div>
-            <div class="mockup-card glow-card">
-              <div class="mc-label">xG gerado</div>
-              <div class="mc-value green">1.8</div>
-              <div class="mc-sub">2 finalizações no alvo</div>
-            </div>
-          </div>
-          <div class="mockup-report reveal">
-            <div class="report-header">
-              <div class="report-title">Relatório gerado por IA</div>
-              <div class="report-badge">concluído</div>
-            </div>
-            <div class="report-lines">
-              <div class="report-line w100" style="height: 7px;"><span class="fill"></span></div>
-              <div class="report-line w85"><span class="fill"></span></div>
-              <div class="report-line w90"><span class="fill"></span></div>
-              <div class="report-line w70"><span class="fill"></span></div>
-              <div class="report-line w60"><span class="fill"></span></div>
-            </div>
-            <div class="timer-badge">⚡ Relatório completo em 8 minutos</div>
+        </div>
+        <div class="mac-base">
+          <div class="mac-keyboard-deck">
+            <div class="mac-trackpad"></div>
           </div>
         </div>
+        <div class="mac-shadow"></div>
       </div>
     </div>
-    <div class="mockup-glow"></div>
   </div>
 </div>
 
@@ -1084,25 +1153,74 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
   });
 })();
 
-/* ── MOCKUP 3D DEPTH ON HOVER ── */
+/* ── MACBOOK SCROLL EXPERIENCE: opening + zoom into screen ── */
 (function() {
-  if (prefersReducedMotion) return;
-  const frame = document.querySelector('.mockup-frame');
-  const wrap = document.querySelector('.mockup-wrap');
-  if (!frame || !wrap) return;
-  wrap.addEventListener('mousemove', (e) => {
-    const rect = wrap.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const cx = rect.width / 2, cy = rect.height / 2;
-    const rotateX = ((y - cy) / cy) * -2.2;
-    const rotateY = ((x - cx) / cx) * 2.2;
-    frame.style.transform = `perspective(1400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  });
-  wrap.addEventListener('mouseleave', () => {
-    frame.style.transform = 'perspective(1400px) rotateX(0deg) rotateY(0deg)';
-  });
+  const wrapEl = document.getElementById('macScrollWrap');
+  const stage = document.getElementById('macStage');
+  const lid = document.getElementById('macLid');
+  const hint = document.getElementById('macScrollHint');
+  const clockEl = document.getElementById('macClock');
+  if (!wrapEl || !stage || !lid) return;
+
+  if (clockEl) {
+    const now = new Date();
+    clockEl.textContent = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  if (prefersReducedMotion) {
+    // Static fallback: laptop already open, screen readable, no scroll-jacking.
+    lid.style.transform = 'rotateX(-4deg)';
+    stage.style.transform = 'rotateX(4deg) scale(1.18)';
+    if (hint) hint.style.display = 'none';
+    return;
+  }
+
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    const rect = wrapEl.getBoundingClientRect();
+    const total = rect.height - window.innerHeight;
+    if (total <= 0) return;
+    let progress = -rect.top / total;
+    progress = Math.max(0, Math.min(1, progress));
+
+    // Phase A (0 → 0.55): lid opens from closed to facing the viewer.
+    const openT = Math.min(1, progress / 0.55);
+    const openEase = 1 - Math.pow(1 - openT, 3);
+    const lidAngle = -98 + openEase * 98; // -98deg (closed) → 0deg (open)
+    lid.style.transform = `rotateX(${lidAngle}deg)`;
+
+    // Phase B (0.45 → 1): camera pushes in toward the screen.
+    const zoomT = Math.max(0, Math.min(1, (progress - 0.45) / 0.55));
+    const zoomEase = zoomT * zoomT * (3 - 2 * zoomT); // smoothstep
+    const scale = 1 + zoomEase * 0.85;
+    const tiltStage = 10 - zoomEase * 10 - openEase * 2;
+    stage.style.transform = `rotateX(${tiltStage}deg) scale(${scale})`;
+
+    const base = stage.querySelector('.mac-base');
+    const shadow = stage.querySelector('.mac-shadow');
+    if (base) base.style.opacity = String(Math.max(0, 1 - zoomT * 1.4));
+    if (shadow) shadow.style.opacity = String(Math.max(0, 1 - zoomT * 1.4));
+
+    const screen = stage.querySelector('.mac-screen');
+    if (screen) {
+      screen.style.borderWidth = `${7 - zoomEase * 7}px`;
+      screen.style.borderRadius = `${15 - zoomEase * 3}px ${15 - zoomEase * 3}px ${3 - zoomEase * 3}px ${3 - zoomEase * 3}px`;
+    }
+
+    if (hint) hint.style.opacity = progress > 0.04 ? '0' : '1';
+  }
+
+  function onScroll() {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
 })();
+
 
 const state = { perfil: '', contexto: '' };
 
